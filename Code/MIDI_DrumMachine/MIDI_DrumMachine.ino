@@ -1,36 +1,30 @@
 #define LED 13              // LED pin on Arduino Uno
 // Sensors
-const int n_sensors = 2;
-int    sensorPins[n_sensors] = {A1, A2};
-double sensorVals[n_sensors] = {0, 0};
-bool   sensorIsReady[n_sensors] = {false, false};
+const int n_sensors = 4;
+int    sensorPins[n_sensors] = {A0, A1, A2, A3};
+double sensorVals[n_sensors] = {0, 0, 0, 0};
+bool   sensorIsReady[n_sensors] = {false, false, false, false};
 int    threshold = 50; // Sensors must cross this level to be registered as a note
 
 // Potentiometer (selects sounds)
-int potPin = A0;
+int potPin = A4;
 double potVal = 0.0;
 
-// Buttons in place of sensors
-int button1 = 6;
-double pitch1 = 36;
-bool up1 = 1;
-
 // MIDI
-bool noteIsOn[n_sensors] = {false, false};
-int  pitches[n_sensors] = {39, 39};
+bool noteIsOn[n_sensors] = {false, false, false, false};
+int  pitches[n_sensors] = {36, 37, 38, 39};
 int  noteVel = 0;
 int  newPitch = 0;
 double t_last_note[n_sensors];
 
 // Timing stuff
-int t_between_notes = 80; // Min. time until next trigger from sensor (ms)
-int note_duration = 250;  // Time until note is cut off (ms)
+int t_between_notes = 100; // Min. time until next trigger from sensor (ms)
+int note_duration = 500;  // Time until note is cut off (ms)
 
 // ----------------------------------------------------------------
 void setup() {
   // put your setup code here, to run once:
-  pinMode(LED, OUTPUT);
-  pinMode(button1, INPUT); 
+  pinMode(LED, OUTPUT);  
   Serial.begin(31250);
 }
 
