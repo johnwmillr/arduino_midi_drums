@@ -1,9 +1,15 @@
-#define LED 13              // LED pin on Arduino Uno
+#define LED 10              // LED pin on Arduino Uno
 // Sensors
 const int n_sensors = 4;
 int    sensorPins[n_sensors] = {A0, A1, A2, A3};
 double sensorVals[n_sensors] = {0, 0, 0, 0};
 bool   sensorIsReady[n_sensors] = {false, false, false, false};
+
+// Button
+int butPin = 4;
+int sensor_to_change = 0;
+bool butVal = false;
+int pitchCounter = 0;
 
 // Potentiometer (selects sounds)
 int potPin = A4;
@@ -21,18 +27,46 @@ double t_last_note[n_sensors];
 int t_between_notes = 100; // Min. time until next trigger from sensor (ms)
 int note_duration = 500;  // Time until note is cut off (ms)
 
-int    threshold = 20; // Sensors must cross this level to be registered as a note
+int    threshold = 15; // Sensors must cross this level to be registered as a note
+int count = 0;
+int debug1 = 5;
+int debug2 = 6;
+bool selectPitches = true;
+
 
 // ----------------------------------------------------------------
 void setup() {
   // put your setup code here, to run once:
   pinMode(LED, OUTPUT);  
+  pinMode(butPin, INPUT);
   Serial.begin(31250);
   // Serial.begin(9600);
 }
 
 // ----------------------------------------------------------------
-void loop() {  
+void loop() {
+  if (count == 0 && digitalRead(debug1) == HIGH && digitalRead(debug2) == HIGH){
+    selectPitches = false;
+    count = 1;
+  }
+  if (digitalRead(butPin) == HIGH && selectPitches == true){
+    while(digitalRead(butPin)==HIGH){
+      delay(1); // Wait for button release
+    }
+    digitalWrite(LED, HIGH);
+    pitchCounter = pitchCounter + 1;
+    if (pitchCounter > (n_sensors-1) ){
+      pitchCounter = 0;
+    }
+  }
+  else {
+    digitalWrite(LED, LOW);
+  }
+
+  if (selectPitches == false){
+    pitchCounter = 4;
+  }
+
   // Read value from pot, determine pitch value for the 1st sensor
   potVal = analogRead(potPin);  
   newPitch = floor((potVal/1023)*17+36);  
@@ -46,7 +80,7 @@ void loop() {
       if (noteIsOn[i] == true){
         sendNoteOff(pitches[i]);
       }
-      pitches[3] = newPitch;
+      pitches[pitchCounter] = newPitch;
       noteVel = convertToVel(sensorVals[i], threshold);      
       // noteVel = 127;
       sendNoteOn(pitches[i], noteVel); // Turn the MIDI note on
@@ -88,7 +122,7 @@ void sendNoteOff(int note){
 
 int convertToVel(double raw, int threshold){
   double outputVel;
-  double min = 60.0;
+  double min = 60;
   double max = 127;  
   // outputVel = floor(raw/8.0+10);
   outputVel = floor(max*(raw - threshold)/(max-min));

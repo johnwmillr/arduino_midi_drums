@@ -10,4 +10,6 @@ Media/
 
 ./Media/
 
-.DS_Store
+*.DS_Store
+
+*.docx
