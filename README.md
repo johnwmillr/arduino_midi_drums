@@ -4,7 +4,7 @@ The code in this project is the basis for my 2016 Halloween costume, a *fully-fu
 
 I'm also trying to learn Markdown right now, hence the **odd emphases** and ~~unnecessary~~ necessary table below.
 
-| Here's | That Table | *I* | Mentioned |
+| Here's | That Table | I   |*Mentioned*|
 | :----: | :--------: | :-: | :-------: |
 | O      |      O     |  X  |  **$**    |
 |        |      X     |     |  *$*      |
@@ -14,4 +14,4 @@ I'm also trying to learn Markdown right now, hence the **odd emphases** and ~~un
 > X wins
 
 
-*Nothing else to see here. __Enjoy the code.__*
+Nothing else to see here. *__Enjoy the code.__*
