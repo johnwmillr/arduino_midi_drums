@@ -13,4 +13,4 @@ I'm also trying to learn Markdown right now, hence the **odd emphases** and ~~un
 *It looks like...*
 > X wins
 >
-> *Nothing else to see here. Enjoy the code.*
+*Nothing else to see here. __Enjoy the code.__*
