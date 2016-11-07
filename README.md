@@ -4,13 +4,13 @@ The code in this project is the basis for my 2016 Halloween costume, a *fully-fu
 
 I'm also trying to learn Markdown right now, hence the **odd emphases** and ~~unnecessary~~ necessary table below.
 
-| Here's | That Table |  I  | Mentioned |
+| Here's | That Table | *I* | Mentioned |
 | :----: | :--------: | :-: | :-------: |
-| x      |      x     |  x  |  **$**    |
-|        |      O     |     |  **$**    |
-|    O   |      O     |     |  **$**    |
+| O      |      O     |  X  |  **$**    |
+|        |      X     |     |  *$*      |
+|  X     |            |  O  |  *__$__*  |
 
-It looks like...
+*It looks like...*
 > X wins
 >
 > *Nothing else to see here. Enjoy the code.*
